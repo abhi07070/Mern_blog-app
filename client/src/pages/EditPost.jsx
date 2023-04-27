@@ -35,7 +35,7 @@ const EditPost = () => {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
-        
+
         axios.put(`${url}/post`, data, { withCredentials: true })
             .then(response => {
                 setRedirect(true);
@@ -52,26 +52,28 @@ const EditPost = () => {
 
     return (
         <>
-            <form onSubmit={updatePost}>
-                <input type="title"
-                    placeholder='Title'
-                    value={title}
-                    onChange={(ev) => setTitle(ev.target.value)}
-                />
-                <input type="summary"
-                    placeholder='Summary'
-                    value={summary}
-                    onChange={(ev) => setSummary(ev.target.value)}
-                />
-                <input type="file"
-                    onChange={(ev) => setFiles(ev.target.files)}
-                />
-                <Editor onChange={setContent} value={content} />
-                <button style={{ marginTop: '5px', marginBottom: '5px' }} type='submit'>Update post</button>
-                <button>
-                    <Link style={{ color: '#fff', textDecoration: 'none' }} to={`/post/${id}`}>Back</Link>
-                </button>
-            </form>
+            <div className='mx-auto max-w-[800px] xl:px-0 px-6 mt-10'>
+                <form onSubmit={updatePost}>
+                    <input type="title"
+                        placeholder='Title'
+                        value={title}
+                        onChange={(ev) => setTitle(ev.target.value)}
+                    />
+                    <input type="summary"
+                        placeholder='Summary'
+                        value={summary}
+                        onChange={(ev) => setSummary(ev.target.value)}
+                    />
+                    <input type="file"
+                        onChange={(ev) => setFiles(ev.target.files)}
+                    />
+                    <Editor onChange={setContent} value={content} />
+                    <button className='flex mb-2 px-4 py-2 bg-black justify-center text-white w-full rounded-sm' type='submit'>Update post</button>
+
+                    <Link className='flex mb-2 px-4 py-2 bg-black justify-center text-white w-full rounded-sm' to={`/post/${id}`}>Back</Link>
+
+                </form>
+            </div>
         </>
     )
 }

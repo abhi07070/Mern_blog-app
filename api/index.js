@@ -183,24 +183,20 @@ app.delete('/post/:id', async (req, res) => {
     const { id } = req.params;
     const { token } = req.cookies;
     jwt.verify(token, jwtSecret, {}, async (err, info) => {
-      if (err) {
-        res.clearCookie('token').status(401).json({ error: 'Unauthorized' });
-        return;
-      }
-      const postDoc = await Post.findById(id);
-      if (!postDoc) {
-        res.status(404).json({ error: 'Post not found' });
-        return;
-      }
-      const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-      if (!isAuthor) {
-        res.status(400).json({ error: 'you are not the author' })
-        return;
-      }
-      await postDoc.delete();
-      res.json({ message: 'Post deleted' });
+        if (err) {
+            res.clearCookie('token').status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+        const filter = { _id: id, author: info.id };
+        const result = await Post.findOneAndDelete(filter);
+        if (!result) {
+            res.status(404).json({ error: 'Post not found' });
+            return;
+        }
+        res.json({ message: 'Post deleted' });
     });
-  });
+
+});
 
 app.get('/post', async (req, res) => {
     const posts = await Post.find()

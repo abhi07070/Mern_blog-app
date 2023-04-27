@@ -31,47 +31,53 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <Link to="/" className="logo">
-        MyBlog
-      </Link>
-      <nav>
-        <div className={openClose ? 'fullscreen active' : 'fullscreen'}>
-          {username && (
-            <>
-              <Link className="hover " to='/posts'>Posts</Link>
-              <Link className="hover active" to='/tag/:category'>Tags</Link>
-              <Link className="hover" to="/create">Create</Link>
-              <Link className="hover" style={{ cursor: "pointer" }} to='/login' onClick={logout}>
+    // <header>
+    <nav className="mx-auto max-w-[800px] flex justify-between mt-4 lg:px-0 px-6">
+      <div>
+        <Link to="/">
+          <h1 className="text-sm xl:text-lg">MyBlog</h1>
+        </Link>
+      </div>
+      <div className={openClose ? 'fullscreen active' : 'fullscreen'}>
+        {username && (
+          <>
+            <div className="space-x-6 text-sm xl:text-lg">
+              <Link to='/posts'>Posts</Link>
+              <Link to='/tag/:category'>Tags</Link>
+              <Link to="/create">Create</Link>
+              <Link to='/login' onClick={logout}>
                 Logout
               </Link>
-            </>
-          )}
-          {!username && (
-            <>
-              <Link className="hover" to="/login">Login</Link>
-              <Link className="hover" to="/register">Register</Link>
-            </>
-          )}
-        </div>
-        <div className="mobile">
-          {!openClose && (
-            <Link className="hamburger" onClick={ev => setOpenClose(true)}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            </Link>
-          )}
-          {openClose && (
-            <Link className="hamburger" onClick={ev => setOpenClose(false)}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </Link>
-          )}
-        </div>
-      </nav>
-    </header>
+            </div>
+          </>
+        )}
+        {!username && (
+          <>
+            <div className="space-x-6">
+              <Link to="/login">Login</Link>
+              <Link to="/register">Register</Link>
+            </div>
+          </>
+        )}
+      </div>
+      {/* <div className="mobile">
+        {!openClose && (
+          <Link className="hamburger" onClick={ev => setOpenClose(true)}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </Link>
+        )}
+        {openClose && (
+          <Link className="hamburger" onClick={ev => setOpenClose(false)}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </Link>
+        )}
+      </div> */}
+    </nav>
+    // </header>
   );
 };
 

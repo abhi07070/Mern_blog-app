@@ -1,39 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { formatISO9075 } from 'date-fns';
 import { Link } from 'react-router-dom';
-import Modal from 'react-modal';
 import { UserContext } from '../UserContext';
 import axios from 'axios';
 
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        opacity: '.5',
-        zIndex: 999,
-    },
-    content: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '80%',
-        maxWidth: '600px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: '10px',
-        border: 'none',
-        outline: 'none',
-        backgroundColor: 'white',
-        padding: '20px',
-    },
-};
-
 const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
     const { setUserInfo, userInfo } = useContext(UserContext);
-    const { username } = userInfo || {};
-    const [isModalOpen, setIsModalOpen] = useState(true);
     const url = process.env.REACT_APP_PORT;
     useEffect(() => {
         axios
@@ -48,36 +20,28 @@ const Post = ({ _id, title, summary, cover, content, createdAt, author }) => {
 
     return (
         <>
-            {!username ? (
-                <Modal isOpen={isModalOpen} style={modalStyle}>
-                    <h2 style={{ textAlign: 'center' }}>Please Log in to continue</h2>
-                    <Link className='modal-btn' onClick={() => setIsModalOpen(true)} to='/login'>Log in</Link>
-                    <Link className='modal-btn' onClick={() => setIsModalOpen(true)} to='/register'>Register</Link>
-                </Modal>
-            ) : (
-                <div className='post'>
-                    <div className='image'>
+            <div className='grid md:grid-cols-2 grid-cols-1 mx-auto max-w-[800px] xl:px-0 px-6 md:space-x-6 space-y-3 mb-5'>
+                <div>
+                    <Link to={`/post/${_id}`}>
+                        <img src={`${url}/${cover}`} alt='' />
+                    </Link>
+                </div>
+                <div className='space-y-5'>
+                    <Link to={`/post/${_id}`}>
+                        <h2 className='uppercase text-base'>{title}</h2>
+                    </Link>
+                    <p className='space-x-2'>
+                        <a className='text-slate-600'>By {author.username}</a>
+                        <time>{formatISO9075(new Date(createdAt))}</time>
+                    </p>
+                    <p className='leading-7'>{summary}</p>
+                    <div className='text-blue-600 font-medium'>
                         <Link to={`/post/${_id}`}>
-                            <img src={`${url}/${cover}`} alt='' />
+                            read more
                         </Link>
-                    </div>
-                    <div className='texts'>
-                        <Link to={`/post/${_id}`}>
-                            <h2>{title}</h2>
-                        </Link>
-                        <p className='info'>
-                            <a className='author'>By {author.username}</a>
-                            <time className='time'>{formatISO9075(new Date(createdAt))}</time>
-                        </p>
-                        <p className='summary'>{summary}</p>
-                        <div className='read-more'>
-                            <Link style={{ fontWeight: '600' }} to={`/post/${_id}`}>
-                                read more
-                            </Link>
-                        </div>
                     </div>
                 </div>
-            )}
+            </div>
         </>
     );
 };

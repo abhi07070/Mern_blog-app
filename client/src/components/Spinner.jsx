@@ -2,7 +2,7 @@ import React from 'react'
 import loading from './loading.gif'
 const Spinner = () => {
   return (
-    <div style={{height:'20px',width:'20px',margin:'0 auto'}}>
+    <div className='mx-auto w-5 mt-5'>
         <img src={loading} alt="loading" />
       </div>
   )

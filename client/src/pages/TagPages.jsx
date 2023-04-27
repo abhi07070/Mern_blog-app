@@ -20,12 +20,12 @@ const TagPages = () => {
     }, [category, postId])
 
     return (
-        <div className='tag-posts'>
-            <div className='tag-header'>
+        <>
+            <div className='text-3xl my-16 text-center'>
                 <h1>{postId}</h1>
             </div>
             {posts.map(post => (
-                <div className='post' key={post._id}>
+                <div className='mx-auto max-w-[800px] xl:px-0 px-6' key={post._id}>
                     <div className="image">
                         <img src={`${url}/${post.cover}`} alt="" />
                     </div>
@@ -37,7 +37,7 @@ const TagPages = () => {
                     {/* <p>Category: {post.category}</p> */}
                 </div>
             ))}
-        </div>
+        </>
     )
 }
 

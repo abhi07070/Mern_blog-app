@@ -36,24 +36,32 @@ const CreatePost = () => {
     }
 
     return (
-        <form onSubmit={createNewPost}>
-            <input type="title"
-                placeholder='Title'
-                value={title}
-                onChange={(ev) => setTitle(ev.target.value)}
-            />
-            <input type="summary"
-                placeholder='Summary'
-                value={summary}
-                onChange={(ev) => setSummary(ev.target.value)}
-            />
-            <input className='file' type="file"
-                onChange={(ev) => setFiles(ev.target.files)
-                }
-            />
-            <Editor value={content} onChange={setContent} />
-            <button style={{ marginTop: '5px' }} type='submit'>Create post</button>
-        </form>
+        <div className='mx-auto max-w-[800px] xl:px-0 px-6 mt-20'>
+            <form onSubmit={createNewPost}>
+                <input
+                    className='block w-full h-12 mb-4 leading-3 text-black px-4 outline-none border border-black rounded-sm bg-white'
+                    type="title"
+                    placeholder='Title'
+                    value={title}
+                    onChange={(ev) => setTitle(ev.target.value)}
+                />
+                <input
+                    className='block w-full h-12 mb-4 leading-3 text-black px-4 outline-none border border-black rounded-sm bg-white'
+                    type="summary"
+                    placeholder='Summary'
+                    value={summary}
+                    onChange={(ev) => setSummary(ev.target.value)}
+                />
+                <input
+                className='block w-full h-12 mb-4 leading-3 text-black p-4 outline-none border border-black rounded-sm bg-white'
+                 type="file"
+                    onChange={(ev) => setFiles(ev.target.files)
+                    }
+                />
+                <Editor value={content} onChange={setContent} />
+                <button className='flex mb-2 px-4 py-2 bg-black justify-center text-white w-full rounded-sm' type='submit'>Create post</button>
+            </form>
+        </div>
     )
 }
 
